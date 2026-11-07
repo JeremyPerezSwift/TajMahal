@@ -85,6 +85,115 @@
 
         </com.google.android.material.chip.ChipGroup>
 
+        <LinearLayout
+            android:id="@+id/ratingSummary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRestaurantName">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+                <TextView
+                    android:id="@+id/tvAverageRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.0"
+                    android:textSize="24sp"
+                    android:fontFamily="@font/jakarta_semibold"/>
+
+                <RatingBar
+                    android:id="@+id/ratingBarAverage"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:rating="4"
+                    android:isIndicator="true"
+                    android:progressTint="@color/gold"/>
+
+                <TextView
+                    android:id="@+id/tvReviewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="(257)"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="24dp"
+                android:orientation="vertical">
+                <ProgressBar
+                    android:id="@+id/progressFiveStars"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:max="100"
+                    android:progress="100"
+                    android:progressTint="@color/gold"/>
+                <ProgressBar
+                    android:id="@+id/progressFourStars"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="4dp"
+                    android:max="100"
+                    android:progress="80"
+                    android:progressTint="@color/gold"/>
+                <ProgressBar
+                    android:id="@+id/progressThreeStars"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="4dp"
+                    android:max="100"
+                    android:progress="60"
+                    android:progressTint="@color/gold"/>
+                <ProgressBar
+                    android:id="@+id/progressTwoStars"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="4dp"
+                    android:max="100"
+                    android:progress="30"
+                    android:progressTint="@color/gold"/>
+                <ProgressBar
+                    android:id="@+id/progressOneStars"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="7dp"
+                    android:layout_height="4dp"
+                    android:max="100"
+                    android:progress="40"
+                    android:progressTint="@color/gold"/>
+
+                <TextView
+                    android:id="@+id/tvLeaveReview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="end"
+                    android:text="Laisser un avis"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    android:fontFamily="@font/jakarta_bold"/>
+            </LinearLayout>
+        </LinearLayout>
+
         <View
             android:id="@+id/separator"
             android:layout_width="0dp"
@@ -96,7 +205,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tvRestaurantHours"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvRestaurantName" />
+            app:layout_constraintTop_toBottomOf="@id/ratingSummary" />
 
         <ImageView
             android:id="@+id/icon_hours"

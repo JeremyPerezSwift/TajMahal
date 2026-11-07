@@ -50,5 +50,4 @@ public class RestaurantRepository {
     public LiveData<Restaurant> getRestaurant() {
         return new MutableLiveData<>(restaurantApi.getRestaurant());
     }
-
 }
