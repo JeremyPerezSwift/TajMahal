@@ -19,6 +19,10 @@ import android.widget.Toast;
 import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.databinding.FragmentDetailsBinding;
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
+import com.openclassrooms.tajmahal.domain.model.Review;
+
+import java.util.List;
+import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -63,6 +67,7 @@ public class DetailsFragment extends Fragment {
         setupUI(); // Sets up user interface components.
         setupViewModel(); // Prepares the ViewModel for the fragment.
         detailsViewModel.getTajMahalRestaurant().observe(requireActivity(), this::updateUIWithRestaurant); // Observes changes in the restaurant data and updates the UI accordingly.
+        detailsViewModel.getTajMahalReviews().observe(getViewLifecycleOwner(), this::updateUIWithReviews);
     }
 
     /**
@@ -121,6 +126,29 @@ public class DetailsFragment extends Fragment {
         binding.buttonAdress.setOnClickListener(v -> openMap(restaurant.getAddress()));
         binding.buttonPhone.setOnClickListener(v -> dialPhoneNumber(restaurant.getPhoneNumber()));
         binding.buttonWebsite.setOnClickListener(v -> openBrowser(restaurant.getWebsite()));
+    }
+
+    /**
+     * Updates the rating summary with restaurant reviews.
+     *
+     * @param reviews The list of restaurant reviews.
+     */
+    private void updateUIWithReviews(List<Review> reviews) {
+        if (reviews == null) {
+            return;
+        }
+
+        float averageRating = detailsViewModel.calculateAverageRating(reviews);
+
+        binding.tvAverageRating.setText(String.format(Locale.US, "%.1f", averageRating));
+        binding.ratingBarAverage.setRating(averageRating);
+        binding.tvReviewCount.setText("(" + reviews.size() + ")");
+
+        binding.progressFiveStars.setProgress(detailsViewModel.getRatingPercentage(reviews, 5));
+        binding.progressFourStars.setProgress(detailsViewModel.getRatingPercentage(reviews, 4));
+        binding.progressThreeStars.setProgress(detailsViewModel.getRatingPercentage(reviews, 3));
+        binding.progressTwoStars.setProgress(detailsViewModel.getRatingPercentage(reviews, 2));
+        binding.progressOneStars.setProgress(detailsViewModel.getRatingPercentage(reviews, 1));
     }
 
     /**

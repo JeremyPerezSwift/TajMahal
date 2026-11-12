@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModel;
 import com.openclassrooms.tajmahal.R;
 import com.openclassrooms.tajmahal.data.repository.RestaurantRepository;
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
+import com.openclassrooms.tajmahal.domain.model.Review;
 
 import javax.inject.Inject;
 
 import java.util.Calendar;
+import java.util.List;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
@@ -84,4 +86,61 @@ public class DetailsViewModel extends ViewModel {
         return dayString;
     }
 
+    /**
+     * Retrieves the restaurant review.
+     *
+     * @return LiveData containing the reviews.
+     */
+    public LiveData<List<Review>> getTajMahalReviews() {
+        return restaurantRepository.getReviews();
+    }
+
+    /**
+     * Calculates the average rating of the restaurant.
+     *
+     * @param reviews The list of reviews.
+     * @return The average rating, or 0 if the list is empty.
+     */
+    public float calculateAverageRating(List<Review> reviews) {
+        if (reviews == null || reviews.isEmpty()) {
+            return 0f;
+        }
+
+        int total = 0;
+        //float total = 0;
+        float average;
+
+        for (Review review : reviews) {
+            total += review.getRate();
+        }
+
+        // (float) convertit totale qui est un int en float
+        average = (float) total / reviews.size();
+        return average;
+    }
+
+    /**
+     * Calculates the percentage of reviews with a given rating.
+     *
+     * @param reviews The list of reviews.
+     * @param stars The rating to count, from 1 to 5.
+     * @return The percentage of reviews with this rating.
+     */
+    public int getRatingPercentage(List<Review> reviews, int stars) {
+        if (reviews == null || reviews.isEmpty()) {
+            return 0;
+        }
+
+        int count = 0;
+        int percentage;
+
+        for (Review review : reviews) {
+            if (review.getRate() == stars) {
+                count++;
+            }
+        }
+
+        percentage = Math.round((count * 100F) / reviews.size());
+        return  percentage;
+    }
 }
