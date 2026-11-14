@@ -7,11 +7,11 @@ import com.openclassrooms.tajmahal.data.service.RestaurantApi;
 import com.openclassrooms.tajmahal.domain.model.Restaurant;
 import com.openclassrooms.tajmahal.domain.model.Review;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 
 /**
  * This is the repository class for managing restaurant data. Repositories are responsible
@@ -38,6 +38,10 @@ public class RestaurantRepository {
     @Inject
     public RestaurantRepository(RestaurantApi restaurantApi) {
         this.restaurantApi = restaurantApi;
+
+        reviewsLiveData = new MutableLiveData<>(
+                new ArrayList<>(restaurantApi.getReviews())
+        );
     }
 
     /**
@@ -59,7 +63,27 @@ public class RestaurantRepository {
      *
      * @return LiveData holding the list of reviews.
      */
+    private final MutableLiveData<List<Review>> reviewsLiveData;
+
+    /**
+     * Returns the observable list of restaurant reviews.
+     *
+     * @return A LiveData containing the list of reviews.
+     */
     public LiveData<List<Review>> getReviews() {
-        return new MutableLiveData<>(restaurantApi.getReviews());
+        return reviewsLiveData;
+    }
+
+    /**
+     * Adds a review and updates the observable list.
+     *
+     * @param review The review to add.
+     */
+    public void addReview(Review review) {
+        restaurantApi.addReview(review);
+
+        reviewsLiveData.setValue(
+                new ArrayList<>(restaurantApi.getReviews())
+        );
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.WindowCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -68,6 +69,14 @@ public class DetailsFragment extends Fragment {
         setupViewModel(); // Prepares the ViewModel for the fragment.
         detailsViewModel.getTajMahalRestaurant().observe(requireActivity(), this::updateUIWithRestaurant); // Observes changes in the restaurant data and updates the UI accordingly.
         detailsViewModel.getTajMahalReviews().observe(getViewLifecycleOwner(), this::updateUIWithReviews);
+
+        binding.tvLeaveReview.setOnClickListener( v ->
+                getParentFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.container, new ReviewsFragment())
+                        .addToBackStack(null)
+                        .commit()
+        );
     }
 
     /**
@@ -93,9 +102,14 @@ public class DetailsFragment extends Fragment {
     private void setupUI() {
         Window window = requireActivity().getWindow();
         window.getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         );
         window.setStatusBarColor(Color.TRANSPARENT);
+
+        WindowCompat.getInsetsController(
+                window,
+                window.getDecorView()
+        ).setAppearanceLightStatusBars(false);
     }
 
     /**

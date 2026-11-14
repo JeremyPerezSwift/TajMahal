@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.restaurant.ReviewsFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/reviewsToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="Taj Mahal"
+        app:navigationIcon="@drawable/outline_arrow_back_24"
+        app:navigationContentDescription="Return"/>
+
+
+    <!-- Formulaire d'ajout d'avis -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="16dp">
+
+        <!-- Utilisateur, note et validation -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Avatar temporaire -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="12dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="#EEEEEE"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:id="@+id/tvImageReviewAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"/>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Nom et étoiles -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvReviewUsername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manon Garcia"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/jakarta_semibold"/>
+
+                <RatingBar
+                    android:id="@+id/ratingBarReview"
+                    style="@style/Widget.AppCompat.RatingBar.Indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:numStars="5"
+                    android:rating="0"
+                    android:stepSize="1"
+                    android:isIndicator="false"
+                    android:progressTint="@color/gold"
+                    android:progressBackgroundTint="#DADADA"/>
+
+            </LinearLayout>
+
+            <!-- Bouton de validation -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/buttonSubmitReview"
+                style="@style/Widget.Material3.Chip.Suggestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Valider"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                app:chipBackgroundColor="#CF2F2F"
+                app:chipCornerRadius="12dp"
+                app:chipStrokeColor="#CF2F2F"
+                 />
+
+        </LinearLayout>
+
+        <!-- Commentaire -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etReviewComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Partagez ici les détails de votre expérience"
+                android:inputType="textCapSentences|textMultiLine"
+                android:minLines="2"
+                android:maxLines="4"
+                android:gravity="top|start"
+                android:textSize="14sp"
+                android:fontFamily="@font/jakarta_regular"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Séparateur -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.75dp"
+            android:layout_marginTop="20dp"
+            android:background="#DADADA"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerReviews"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="20dp"
+        android:clipToPadding="false"/>
+</LinearLayout>
