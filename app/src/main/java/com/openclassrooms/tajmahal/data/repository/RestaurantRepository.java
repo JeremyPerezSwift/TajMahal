@@ -1,5 +1,9 @@
 package com.openclassrooms.tajmahal.data.repository;
 
+import static java.sql.DriverManager.println;
+
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -38,10 +42,6 @@ public class RestaurantRepository {
     @Inject
     public RestaurantRepository(RestaurantApi restaurantApi) {
         this.restaurantApi = restaurantApi;
-
-        reviewsLiveData = new MutableLiveData<>(
-                new ArrayList<>(restaurantApi.getReviews())
-        );
     }
 
     /**
@@ -63,7 +63,7 @@ public class RestaurantRepository {
      *
      * @return LiveData holding the list of reviews.
      */
-    private final MutableLiveData<List<Review>> reviewsLiveData;
+    //private final MutableLiveData<List<Review>> reviewsLiveData;
 
     /**
      * Returns the observable list of restaurant reviews.
@@ -71,7 +71,7 @@ public class RestaurantRepository {
      * @return A LiveData containing the list of reviews.
      */
     public LiveData<List<Review>> getReviews() {
-        return reviewsLiveData;
+        return new MutableLiveData<>(restaurantApi.getReviews());
     }
 
     /**
@@ -81,9 +81,10 @@ public class RestaurantRepository {
      */
     public void addReview(Review review) {
         restaurantApi.addReview(review);
-
-        reviewsLiveData.setValue(
-                new ArrayList<>(restaurantApi.getReviews())
-        );
     }
+
+//    public LiveData<List<Review>> addReview(Review review) {
+//        Log.d("RestaurantRepository", "Un nouvel avis a été ajouté");
+//        return new MutableLiveData<>(restaurantApi.addReview(review));
+//    }
 }
