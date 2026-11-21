@@ -18,11 +18,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Unit tests for {@link RestaurantRepository}.
+ *
+ * Verifies that the repository retrieves restaurant data
+ * and communicates correctly with the mocked RestaurantApi.
+ */
 public class RestaurantRepositoryTest {
 
     RestaurantApi restaurantApi = mock(RestaurantApi.class);
     Restaurant restaurant = mock(Restaurant.class);
 
+    /**
+     * Verifies that getRestaurant() returns the restaurant
+     * provided by the API.
+     */
     @Test
     public void test_getRestaurant_returnsRestaurant() {
 
@@ -39,6 +49,10 @@ public class RestaurantRepositoryTest {
         verify(restaurantApi).getRestaurant();
     }
 
+    /**
+     * Verifies that getReviews() returns the list of reviews
+     * provided by the API.
+     */
     @Test
     public void test_getReview_returns_InitialReview() {
         // Given
@@ -70,6 +84,10 @@ public class RestaurantRepositoryTest {
         verify(restaurantApi).getReviews();
     }
 
+    /**
+     * Verifies that getReviews() returns an empty list
+     * when the API provides no reviews.
+     */
     @Test
     public void test_getReviews_emptyList_returnsEmptyList() {
 
@@ -88,6 +106,10 @@ public class RestaurantRepositoryTest {
         verify(restaurantApi).getReviews();
     }
 
+    /**
+     * Verifies that addReview() forwards the review
+     * to the API.
+     */
     @Test
     public void test_addReview_callsApi() {
 

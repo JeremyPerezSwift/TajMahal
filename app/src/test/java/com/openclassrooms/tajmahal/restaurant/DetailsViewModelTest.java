@@ -20,6 +20,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Unit tests for {@link DetailsViewModel}.
+ *
+ * Verifies that the ViewModel retrieves restaurant data,
+ * calculates average ratings and calculates rating percentages.
+ */
 public class DetailsViewModelTest {
 
     RestaurantRepository repository = mock(RestaurantRepository.class);
@@ -27,6 +33,10 @@ public class DetailsViewModelTest {
 
     ///  Get
 
+    /**
+     * Verifies that getTajMahalRestaurant() returns the restaurant
+     * provided by the Repository.
+     */
     @Test
     public void test_getTajMahalRestaurant_returnsRestaurant() {
 
@@ -47,6 +57,10 @@ public class DetailsViewModelTest {
         verify(repository).getRestaurant();
     }
 
+    /**
+     * Verifies that getTajMahalReviews() returns the list of reviews
+     * provided by the Repository.
+     */
     @Test
     public void test_getTajMahalReviews_returnsReviews() {
 
@@ -81,6 +95,10 @@ public class DetailsViewModelTest {
 
     ///  test_calculateAverageRating_
 
+    /**
+     * Verifies that calculateAverageRating() correctly calculates
+     * the average rating from a list of reviews.
+     */
     @Test
     public void test_calculateAverageRating_returnsAverage() {
 
@@ -99,7 +117,10 @@ public class DetailsViewModelTest {
         assertEquals(4f, result, 0.001f);
     }
 
-
+    /**
+     * Verifies that calculateAverageRating() returns zero
+     * when the list of reviews is empty.
+     */
     @Test
     public void test_calculateAverageRating_emptyList_returnsZero() {
 
@@ -113,6 +134,10 @@ public class DetailsViewModelTest {
         assertEquals(0f, result, 0.001f);
     }
 
+    /**
+     * Verifies that calculateAverageRating() returns zero
+     * when the list of reviews is null.
+     */
     @Test
     public void test_calculateAverageRating_nullList_returnsZero() {
 
@@ -126,6 +151,10 @@ public class DetailsViewModelTest {
         assertEquals(0f, result, 0.001f);
     }
 
+    /**
+     * Verifies that calculateAverageRating() correctly calculates
+     * an average rating with a decimal value.
+     */
     @Test
     public void test_calculateAverageRating_returnsDecimalAverage() {
 
@@ -144,6 +173,10 @@ public class DetailsViewModelTest {
 
     /// test_getRatingPercentage
 
+    /**
+     * Verifies that getRatingPercentage() correctly calculates
+     * the percentage of reviews matching a given rating.
+     */
     @Test
     public void test_getRatingPercentage_returnsPercentage() {
 
@@ -162,7 +195,10 @@ public class DetailsViewModelTest {
         assertEquals(50, result);
     }
 
-
+    /**
+     * Verifies that getRatingPercentage() returns zero
+     * when the list of reviews is empty.
+     */
     @Test
     public void test_getRatingPercentage_emptyList_returnsZero() {
 
@@ -176,6 +212,10 @@ public class DetailsViewModelTest {
         assertEquals(0, result);
     }
 
+    /**
+     * Verifies that getRatingPercentage() returns zero
+     * when the list of reviews is null.
+     */
     @Test
     public void test_getRatingPercentage_nullList_returnsZero() {
 
@@ -189,6 +229,10 @@ public class DetailsViewModelTest {
         assertEquals(0, result);
     }
 
+    /**
+     * Verifies that getRatingPercentage() returns zero
+     * when no reviews match the requested rating.
+     */
     @Test
     public void test_getRatingPercentage_noMatchingRating_returnsZero() {
 
@@ -205,6 +249,10 @@ public class DetailsViewModelTest {
         assertEquals(0, result);
     }
 
+    /**
+     * Verifies that getRatingPercentage() rounds the calculated
+     * percentage to the nearest integer.
+     */
     @Test
     public void test_getRatingPercentage_roundsPercentage() {
 

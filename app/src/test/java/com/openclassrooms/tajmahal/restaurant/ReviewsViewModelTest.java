@@ -22,10 +22,21 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Unit tests for {@link ReviewsViewModel}.
+ *
+ * Verifies that the ViewModel retrieves restaurant reviews,
+ * validates new reviews and communicates correctly with
+ * the mocked RestaurantRepository.
+ */
 public class ReviewsViewModelTest {
     RestaurantRepository repository = mock(RestaurantRepository.class);
     ReviewsViewModel viewModel = new ReviewsViewModel(repository);
 
+    /**
+     * Verifies that getReviews() returns the list of reviews
+     * provided by the Repository.
+     */
     @Test
     public void test_getReviews_returnReviews() {
         // Given
@@ -57,6 +68,10 @@ public class ReviewsViewModelTest {
         verify(repository).getReviews();
     }
 
+    /**
+     * Verifies that a valid review is forwarded to the Repository
+     * and that the updated list of reviews is returned.
+     */
     @Test
     public void test_addReview_validReview_returnsReviews() {
 
@@ -91,6 +106,10 @@ public class ReviewsViewModelTest {
         verify(repository).addReview(review);
     }
 
+    /**
+     * Verifies that a review with an empty comment is rejected
+     * without calling the Repository.
+     */
     @Test
     public void test_addReview_emptyComment_returnsNull() {
 
@@ -110,6 +129,10 @@ public class ReviewsViewModelTest {
         verifyNoInteractions(repository);
     }
 
+    /**
+     * Verifies that a review containing only whitespace
+     * is rejected without calling the Repository.
+     */
     @Test
     public void test_addReview_blankComment_returnsNull() {
 
@@ -129,6 +152,10 @@ public class ReviewsViewModelTest {
         verifyNoInteractions(repository);
     }
 
+    /**
+     * Verifies that a review without a rating is rejected
+     * without calling the Repository.
+     */
     @Test
     public void test_addReview_noRating_returnsNull() {
 
@@ -148,6 +175,10 @@ public class ReviewsViewModelTest {
         verifyNoInteractions(repository);
     }
 
+    /**
+     * Verifies that a review with a rating greater than five
+     * is rejected without calling the Repository.
+     */
     @Test
     public void test_addReview_ratingAboveFive_returnsNull() {
 
@@ -167,6 +198,10 @@ public class ReviewsViewModelTest {
         verifyNoInteractions(repository);
     }
 
+    /**
+     * Verifies that a null Review object is rejected
+     * without calling the Repository.
+     */
     @Test
     public void test_addReview_nullReview_returnNull() {
         // Given
@@ -180,6 +215,10 @@ public class ReviewsViewModelTest {
         verifyNoInteractions(repository);
     }
 
+    /**
+     * Verifies that a review with a null comment is rejected
+     * without calling the Repository.
+     */
     @Test
     public void test_addReview_nullComment_returnsNull() {
 
