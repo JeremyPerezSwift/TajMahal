@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.Toast;
 
 import androidx.core.view.WindowCompat;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.openclassrooms.tajmahal.databinding.FragmentReviewsBinding;
 import com.openclassrooms.tajmahal.domain.model.Review;
+
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -37,6 +40,7 @@ public class ReviewsFragment extends Fragment {
 
     private FragmentReviewsBinding binding;
     private ReviewsViewModel reviewsViewModel;
+    private ReviewAdapter reviewAdapter;
 
     /**
      * This method is called when the fragment is first created.
@@ -124,7 +128,8 @@ public class ReviewsFragment extends Fragment {
      * the displayed list when the data changes.
      */
     private void setupRecyclerView() {
-        ReviewAdapter reviewAdapter = new ReviewAdapter();
+        reviewAdapter = new ReviewAdapter();
+
         binding.recyclerReviews.setLayoutManager(
                 new LinearLayoutManager(requireContext())
         );
@@ -163,8 +168,15 @@ public class ReviewsFragment extends Fragment {
                 rate
         );
 
-        // Send the review to the ViewModel
-        if (reviewsViewModel.addReview(review)) {
+        LiveData<List<Review>> result = reviewsViewModel.addReview(review);
+
+        if (result != null) {
+            List<Review> reviews = result.getValue();
+
+            if (reviews != null) {
+                reviewAdapter.setReviews(reviews);
+            }
+
             binding.etReviewComment.setText("");
             binding.ratingBarReview.setRating(0);
             binding.recyclerReviews.scrollToPosition(0);

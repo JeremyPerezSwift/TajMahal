@@ -46,17 +46,18 @@ public class ReviewsViewModel extends ViewModel {
      * @param review The review to add.
      * @return True if the review is valid and added.
      */
-    public boolean addReview(Review review) {
+    public LiveData<List<Review>> addReview(Review review) {
         if (review == null
                 || review.getComment() == null
                 || review.getComment().trim().isEmpty()
                 || review.getRate() < 1
                 || review.getRate() > 5) {
-            return false;
+            return null;
         }
 
         restaurantRepository.addReview(review);
-        return true;
+
+        return getReviews();
     }
 
 }
